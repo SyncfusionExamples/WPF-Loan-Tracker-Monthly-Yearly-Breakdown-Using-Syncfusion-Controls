@@ -1,4 +1,5 @@
-﻿using Syncfusion.Windows.Shared;
+﻿using Syncfusion.Windows.Controls;
+using Syncfusion.Windows.Shared;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -23,10 +24,16 @@ namespace LoanCalculatorSample
         double principleAmount;
         double interestAmount;
         double loanPeriod;
+        DateTime selectedDate;
+        string periodType;
+
+        ObservableCollection<MonthlyDetails> months;
+
         public MainWindow()
         {
             InitializeComponent();
             dataGrid.ItemsSource = viewModel.LoanStatusData;
+            months = new ObservableCollection<MonthlyDetails>();
 
         }
 
@@ -43,8 +50,14 @@ namespace LoanCalculatorSample
         }
 
         private void IntegerTextBox_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {           
+            loanPeriod = (long)e.NewValue > 40 ? 40 : (long)e.NewValue;
+            CalculateLoan();
+        }
+
+        private void datePicker_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            loanPeriod = (long)e.NewValue;
+            selectedDate = (DateTime)e.NewValue;
             CalculateLoan();
         }
 
@@ -53,7 +66,16 @@ namespace LoanCalculatorSample
             double principal = principleAmount;
             double annualInterestRate = interestAmount;
             int tenureYears = (int)loanPeriod;
-            int totalMonths = tenureYears * 12;
+            int totalMonths = 0;
+            if (periodType== "Year")
+            {
+                totalMonths = tenureYears * 12;
+            }
+            else
+            {
+                totalMonths = tenureYears;
+            }
+
             double monthlyRate = annualInterestRate / (12 * 100);
 
             double emi = principal * monthlyRate * Math.Pow(1 + monthlyRate, totalMonths) /
@@ -62,55 +84,53 @@ namespace LoanCalculatorSample
             if (!double.IsNaN(emi))
             {
                 double balance = principal;
+                double balanceAmount = balance;
 
-                DateTime startDate = DateTime.Now;
-
+                DateTime startDate = selectedDate;
+               
                 viewModel.LoanStatusData.Clear();
-
-                for (int y = 0; y <= tenureYears; y++)
+                months.Clear();
+                for (int i = 1; i <= totalMonths; i++)
                 {
-                    double yearlyPrincipal = 0;
-                    double yearlyInterest = 0;
-                    double yearlyEMI = 0;
+                    double interest = balanceAmount * monthlyRate;
+                    double principalPaid = emi - interest;
 
-                    var currentYear = startDate.AddYears(y).Year;
+                    balanceAmount = balanceAmount - principalPaid;
 
-                    int startMonth = (y == 1) ? DateTime.Now.Month : 1;
-                    int totalMonth = 12 - (startMonth - 1);
-
-                    viewModel.MonntlyLoanStatusData.Clear();
-                    for (int m = 0; m < 12; m++)
+                    months.Add(new MonthlyDetails()
                     {
+                        Month = new DateTime(startDate.Year, startDate.Month, startDate.Day),
+                        Payments = emi,
+                        PrincipalPaid = principalPaid,
+                        InterestPaid = interest,
+                        BalanceAmount = balanceAmount
+                    });
 
-                        int monthIndex = (y * 12) + m;
-                        if (monthIndex >= totalMonths)
-                            break;
+                    startDate = startDate.AddMonths(1);
+                }
 
-                        double interest = balance * monthlyRate;
-                        double principalPaid = emi - interest;
-                        balance -= principalPaid;
+                var groupedByYear = months.GroupBy(m => m.Month.Year);
 
-                        yearlyPrincipal += principalPaid;
-                        yearlyInterest += interest;
-                        yearlyEMI += emi;
-                        viewModel.MonntlyLoanStatusData.Add(new MonthlyDetails() { Month = new DateTime(startDate.Year, startDate.Month, startDate.Day), Payments = emi, PrincipalPaid = principalPaid
-                            , InterestPaid = interest, BalanceAmount = balance });
-                    }
+
+                foreach (var yearGroup in groupedByYear)
+                {
+                    double yearlyPrincipal = yearGroup.Sum(m => m.PrincipalPaid);
+                    double yearlyInterest = yearGroup.Sum(m => m.InterestPaid);
+                    double yearlyEMI = yearGroup.Sum(m => m.Payments);
+                    double yearEndBalance = yearGroup.Last().BalanceAmount;
 
                     viewModel.LoanStatusData.Add(new Model(
 
-                        new DateTime(currentYear, 1, 1),
+                        new DateTime(yearGroup.Key, 1, 1),
                         yearlyEMI,
-                       Math.Round(yearlyInterest, 2),
                         Math.Round(yearlyPrincipal, 2),
-                        Math.Round(balance, 2),
-                       viewModel.MonntlyLoanStatusData = GetMonntlyLoanStatusData(startDate)
-
-                    ));
-
-                    //year = year.AddMonths(totalMonth);                   
+                        Math.Round(yearlyInterest, 2),
+                        Math.Round(yearEndBalance, 2),
+                        viewModel.MonntlyLoanStatusData = GetMonntlyLoanStatusData(yearGroup.Key)
+                        ));   
                 }
 
+               
                 // For doughnut chart
                 double totalInterest = (emi * totalMonths) - principal;
                 double totalAmount = principal + totalInterest;
@@ -123,21 +143,39 @@ namespace LoanCalculatorSample
                 viewModel.EmiData.Add(new EMIModel("TotalInterest", totalInterest));
             }
         }
+        
+        
 
-        private ObservableCollection<MonthlyDetails> GetMonntlyLoanStatusData(DateTime year)
+        private ObservableCollection<MonthlyDetails> GetMonntlyLoanStatusData(int key)
         {
            ObservableCollection<MonthlyDetails> monthlyDetails = new ObservableCollection<MonthlyDetails>();
 
-            
-            foreach (var monthData in viewModel.MonntlyLoanStatusData)
+            foreach (var monthData in months)
             {
-                if(monthData.Month.Year == year.Year)
+                if(monthData.Month.Year == key)
                 {
                     monthlyDetails.Add(monthData);
                 }
             }
 
             return monthlyDetails;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox)
+            {
+                if(comboBox.SelectedIndex == 0)
+                {
+                    periodType = "Year";
+                }
+                else
+                {
+                    periodType = "Month";
+                }
+            }
+
+            CalculateLoan();
         }
     }
 }
