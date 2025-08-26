@@ -1,0 +1,270 @@
+﻿<Window x:Class="LoanCalculatorSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoanCalculatorSample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:extk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"       
+       >
+    <Window.DataContext>
+        <local:ViewModel x:Name="viewModel"/>
+    </Window.DataContext>
+    <ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+           
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="blue" Height="100">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="4.5*"/>
+                        <ColumnDefinition Width="4.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="Loan Calculator" FontStretch="Expanded" Grid.Column="1" Grid.Row="0" 
+                           FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                    <ComboBox SelectedIndex="0" VerticalAlignment="Center" Margin="0,0,20,0"
+                              HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0">
+                        <ComboBoxItem Content="Light"/>
+                        <ComboBoxItem Content="Dark"/>
+                    </ComboBox>
+                </Grid>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Select loan amount" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                        <extk:DoubleUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="500000" Increment="10000"
+                                       Value="{Binding ElementName=loanSlider,Path=Value,Mode=TwoWay}"
+                                       HorizontalContentAlignment="Left" ValueChanged="DoubleUpDown_ValueChanged">
+                        </extk:DoubleUpDown>
+                        <syncfusion:SfRangeSlider x:Name="loanSlider" Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="500000" 
+                                              ShowValueLabels="True"
+                                              Value="300000"
+                                              TickFrequency="100000"
+                                              TickPlacement="BottomRight"/>
+
+                        <TextBlock Text="Rate of interest" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                        <extk:DoubleUpDown Grid.Row="2" Grid.Column="1"  Minimum="0" Maximum="50" 
+                                       Increment="0.25" TextAlignment="Left"
+                                       Value="{Binding ElementName=interestSlider,Path=Value,Mode=TwoWay}"
+                                       ValueChanged="DoubleUpDown_ValueChanged_1"/>
+                        <syncfusion:SfRangeSlider Grid.Row="3" Grid.ColumnSpan="2"
+                                          x:Name="interestSlider"
+                                          Minimum="0"
+                                          Maximum="50"
+                                          Value="5.5"
+                                          TickPlacement="BottomRight"
+                                          TickFrequency="10"
+                                          ShowValueLabels="True"/>
+
+                        <TextBlock Text="Loan Tenure" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                        <Grid Grid.Row="4" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <syncfusion:IntegerTextBox Value="{Binding ElementName=tenureSlider,Path=Value,Mode=TwoWay}" Grid.Column="0" Height="50" ValueChanged="IntegerTextBox_ValueChanged"/>
+                            <ComboBox Grid.Column="1" Height="50" SelectedIndex="0" VerticalContentAlignment="Center">
+                                <ComboBoxItem Content="Year"/>
+                                <ComboBoxItem Content="Month"/>
+                            </ComboBox>
+                        </Grid>
+                        <syncfusion:SfRangeSlider Grid.Row="5" Grid.ColumnSpan="2" x:Name="tenureSlider"
+                                          Minimum="0"
+                                          Maximum="40"
+                                              Value="12"
+                                          TickPlacement="BottomRight"
+                                          TickFrequency="10"
+                                          ShowValueLabels="True"
+                                          ValuePlacement="BottomRight"
+                                          />
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="1" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <syncfusion:SfChart Grid.Row="0" Grid.ColumnSpan="2">
+                        <syncfusion:SfChart.Legend>
+                            <syncfusion:ChartLegend DockPosition="Right"/>
+                        </syncfusion:SfChart.Legend>
+                        <syncfusion:DoughnutSeries ItemsSource="{Binding EmiData}"
+                                                   XBindingPath="XValue"
+                                                   YBindingPath="YValue"
+                                                   ShowTooltip="True"
+                                                   DoughnutCoefficient="0.4"
+                                                   LegendIcon="Circle"
+                                               >
+                            <syncfusion:DoughnutSeries.CenterView>
+                                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel>
+                                        <Label Content="Total AmountPayable" FontSize="15" FontWeight="Bold"/>
+                                        <Label x:Name="viewLabel" HorizontalContentAlignment="Center" FontSize="15"
+                                               FontWeight="Bold"/>
+                                    </StackPanel>
+                                </ContentControl>
+                            </syncfusion:DoughnutSeries.CenterView>
+                        </syncfusion:DoughnutSeries>
+                    </syncfusion:SfChart>
+                    <Separator Grid.ColumnSpan="2" Grid.Row="1" Margin="-10,20"></Separator>
+                    <Label Content="Your Monthly payment" Grid.Row="2" Grid.Column="0" FontWeight="Bold"
+                           FontSize="25"  HorizontalContentAlignment="Center"  FontFamily="Calibri"
+                           VerticalContentAlignment="Center"/>
+                    <Label x:Name="label" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold"
+                           FontSize="25"/>
+                </Grid>
+            </Border>
+                <Border Grid.Row="2" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <Label Content="Your Repayment Details" FontStretch="ExtraExpanded" FontSize="20"/>
+                            <Label Content="Your debt repayment schedule in regular instalments over a period of time."/>
+                        </StackPanel>
+
+                    <syncfusion:SfDatePicker Grid.Row="0" Grid.Column="1" FormatString="MMM yyyy" SelectorFormatString="M" Width="200" HorizontalAlignment="Right" 
+                                             Margin="0,0,20,0">
+                       
+                    </syncfusion:SfDatePicker>
+
+
+
+                    <syncfusion:SfChart Margin="10" Grid.Row="1" Grid.ColumnSpan="2">
+                        <syncfusion:SfChart.Resources>
+                            <ResourceDictionary>
+                                <DataTemplate x:Key="tooltiptemplate">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Item.Years, StringFormat='{}{0:yyyy}'}" HorizontalAlignment="Center" Foreground="White"/>
+                                        <Separator Width="150" Height="2"/>
+                                        <TextBlock Text="{Binding Item.PrincipalPaid,StringFormat='PrincipalPaid : ${0:N0}'}" Foreground="White"/>
+                                        <TextBlock Text="{Binding Item.InterestPaid,StringFormat='InterestPaid : ${0:N0}'}" Foreground="White"/>
+                                        <TextBlock Text="{Binding Item.BalanceAmount,StringFormat='BalanceAmount : ${0:N0}'}" Foreground="White"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ResourceDictionary>
+                        </syncfusion:SfChart.Resources>
+                            <syncfusion:SfChart.PrimaryAxis>
+                                <syncfusion:DateTimeAxis LabelFormat="yyyy" Header="Years">
+                                </syncfusion:DateTimeAxis>
+                            </syncfusion:SfChart.PrimaryAxis>
+                            <syncfusion:SfChart.SecondaryAxis>
+                                <syncfusion:NumericalAxis Header="Payments" LabelFormat="$0"/>
+                            </syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:SfChart.Legend>
+                            <syncfusion:ChartLegend/>
+                        </syncfusion:SfChart.Legend>
+                            <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
+                                                     XBindingPath="Years"
+                                                     YBindingPath="PrincipalPaid"
+                                                     ShowTooltip="True"
+                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
+                                                     LegendIcon="SeriesType"/>
+                            <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
+                                                     XBindingPath="Years"
+                                                     YBindingPath="InterestPaid"
+                                                     ShowTooltip="True"
+                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
+                                                     LegendIcon="SeriesType"/>
+                            <syncfusion:LineSeries ItemsSource="{Binding LoanStatusData}"
+                                                     XBindingPath="Years"
+                                                     YBindingPath="BalanceAmount"
+                                                     ShowTooltip="True"
+                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
+                                                   LegendIcon="SeriesType">
+                                <syncfusion:LineSeries.AdornmentsInfo>
+                                    <syncfusion:ChartAdornmentInfo ShowMarker="True" Symbol="Diamond"/>
+                                </syncfusion:LineSeries.AdornmentsInfo>
+                                <syncfusion:LineSeries.YAxis>
+                                    <syncfusion:NumericalAxis OpposedPosition="True" Header="BalanceAmount" LabelFormat="$0"/>
+                                </syncfusion:LineSeries.YAxis>
+                            </syncfusion:LineSeries>
+                        </syncfusion:SfChart>
+                    </Grid>
+                </Border>
+           
+            <syncfusion:SfDataGrid  x:Name="dataGrid" 
+                                   AutoGenerateRelations="True"
+                                    Grid.Row="3"
+                                    Grid.ColumnSpan="2"
+                                    Margin="10"
+                                   >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn MappingName="Years" AllowGrouping="True">
+                        <syncfusion:GridTextColumn.DisplayBinding>
+                            <Binding Path="Years" StringFormat='{}{0:yyyy}'/>
+                        </syncfusion:GridTextColumn.DisplayBinding>
+                    </syncfusion:GridTextColumn>
+
+                    <syncfusion:GridTextColumn MappingName="Payments">
+                        <syncfusion:GridTextColumn.DisplayBinding>
+                            <Binding Path="Payments" StringFormat='${0:N0}'/>
+                        </syncfusion:GridTextColumn.DisplayBinding>
+                    </syncfusion:GridTextColumn>
+
+
+                    <syncfusion:GridTextColumn MappingName="PrincipalPaid">
+                        <syncfusion:GridTextColumn.DisplayBinding>
+                            <Binding Path="PrincipalPaid" StringFormat='${0:N0}'/>
+                        </syncfusion:GridTextColumn.DisplayBinding>
+                    </syncfusion:GridTextColumn>
+
+
+                    <syncfusion:GridTextColumn MappingName="InterestPaid">
+                        <syncfusion:GridTextColumn.DisplayBinding>
+                            <Binding Path="InterestPaid" StringFormat='${0:N0}'/>
+                        </syncfusion:GridTextColumn.DisplayBinding>
+                    </syncfusion:GridTextColumn>
+
+
+                    <syncfusion:GridTextColumn MappingName="BalanceAmount">
+                        <syncfusion:GridTextColumn.DisplayBinding>
+                            <Binding Path="BalanceAmount" StringFormat='${0:N0}'/>
+                        </syncfusion:GridTextColumn.DisplayBinding>
+                    </syncfusion:GridTextColumn>
+
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+           
+        </Grid>
+    </ScrollViewer>
+</Window>
