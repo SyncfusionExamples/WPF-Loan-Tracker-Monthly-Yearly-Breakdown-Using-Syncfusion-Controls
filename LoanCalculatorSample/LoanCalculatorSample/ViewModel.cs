@@ -5,12 +5,42 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace LoanCalculatorSample
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private Brush foregroundBrush = Brushes.Black;
+        private Brush backgroundBrush = Brushes.White;
+
+        public Brush UpDownForeground 
+        {
+            get
+            {
+                return foregroundBrush;
+            }
+            set
+            {
+                foregroundBrush = value;
+                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(UpDownForeground)));
+            } 
+        }
+
+        public Brush UpDownBackground
+        {
+            get
+            {
+                return backgroundBrush;
+            }
+            set
+            {
+                backgroundBrush = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UpDownBackground)));
+            }
+        }
+
         private double _totalAmountPayable;
 
         public double TotalAmountPayable

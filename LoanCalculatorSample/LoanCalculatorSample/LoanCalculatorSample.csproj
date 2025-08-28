@@ -13,7 +13,10 @@
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="*" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="*" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="*" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="*" />
     <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="*" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="*" />
+    <PackageReference Include="Syncfusion.Themes.FluentLight.WPF" Version="*" />
   </ItemGroup>
 
 </Project>

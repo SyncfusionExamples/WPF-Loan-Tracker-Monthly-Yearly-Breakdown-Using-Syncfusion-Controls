@@ -1,4 +1,5 @@
-﻿using Syncfusion.Windows.Controls;
+﻿using Syncfusion.SfSkinManager;
+using Syncfusion.Windows.Controls;
 using Syncfusion.Windows.Shared;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -176,6 +177,22 @@ namespace LoanCalculatorSample
             }
 
             CalculateLoan();
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combobox && combobox.SelectedIndex == 0)
+            {
+                SfSkinManager.SetTheme(this, new FluentTheme { ThemeName = "FluentLight", HoverEffectMode = HoverEffect.Border });
+                viewModel.UpDownForeground = Brushes.Black;
+                viewModel.UpDownBackground = Brushes.White;
+            }
+            else
+            {
+                SfSkinManager.SetTheme(this, new FluentTheme { ThemeName = "FluentDark", HoverEffectMode = HoverEffect.Border });
+                viewModel.UpDownForeground = Brushes.White;
+                viewModel.UpDownBackground = Brushes.Black;
+            }
         }
     }
 }
