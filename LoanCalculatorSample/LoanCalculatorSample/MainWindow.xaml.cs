@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace LoanCalculatorSample
 {
@@ -96,7 +97,7 @@ namespace LoanCalculatorSample
                     double interest = balanceAmount * monthlyRate;
                     double principalPaid = emi - interest;
 
-                    balanceAmount = balanceAmount - principalPaid;
+                    balanceAmount = Math.Max(0, balanceAmount - principalPaid);
 
                     months.Add(new MonthlyDetails()
                     {
@@ -124,8 +125,8 @@ namespace LoanCalculatorSample
 
                         new DateTime(yearGroup.Key, 1, 1),
                         yearlyEMI,
-                        Math.Round(yearlyPrincipal, 2),
                         Math.Round(yearlyInterest, 2),
+                        Math.Round(yearlyPrincipal, 2),
                         Math.Round(yearEndBalance, 2),
                         viewModel.MonntlyLoanStatusData = GetMonntlyLoanStatusData(yearGroup.Key)
                         ));   
@@ -140,8 +141,8 @@ namespace LoanCalculatorSample
                 viewLabel.Content = "$" + totalAmount.ToString("F2");
 
                 viewModel.EmiData.Clear();
-                viewModel.EmiData.Add(new EMIModel("PrincipalAmount", principal));
-                viewModel.EmiData.Add(new EMIModel("TotalInterest", totalInterest));
+                viewModel.EmiData.Add(new EMIModel("Principal Amount", principal));
+                viewModel.EmiData.Add(new EMIModel("Total Interest", Math.Round(totalInterest, 2)));
             }
         }
         

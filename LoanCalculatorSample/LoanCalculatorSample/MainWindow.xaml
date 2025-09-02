@@ -8,25 +8,52 @@
         Title="MainWindow" Height="450" Width="800"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:extk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"       
-       >
+        xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF">
+
     <Window.DataContext>
         <local:ViewModel x:Name="viewModel"/>
     </Window.DataContext>
+
     <ScrollViewer>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-           
-            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="blue" Height="100">
+
+            <Grid.Resources>
+                <Style x:Key="InactiveTrackStyle" TargetType="Rectangle">
+                    <Setter Property="Height" Value="4" />
+                    <Setter Property="Fill" Value="#FDBEBE" />
+                    <Setter Property="RadiusX" Value="2" />
+                    <Setter Property="RadiusY" Value="2" />
+                </Style>
+                <Style x:Key="ActiveTrackStyle" TargetType="Rectangle">
+                    <Setter Property="Height" Value="4" />
+                    <Setter Property="Fill" Value="#E84646" />
+                    <Setter Property="RadiusX" Value="2" />
+                    <Setter Property="RadiusY" Value="2" />
+                </Style>
+                <Style x:Key="ThumbStyle" TargetType="Thumb">
+                    <Setter Property="Width" Value="12" />
+                    <Setter Property="Height" Value="12" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Thumb">
+                                <Ellipse Fill="#E84646" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#E44646" Height="95">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
@@ -36,95 +63,129 @@
                     <Path Data="M18.491001,24.669998C19.304003,24.669998 19.964006,25.332996 19.964006,26.150995 19.964006,26.968994 19.304003,27.631992 18.491001,27.631992 17.676998,27.631992 17.016996,26.968994 17.016996,26.150995 17.016996,25.332996 17.676998,24.669998 18.491001,24.669998z M12.469996,24.669998C13.282994,24.669998 13.942993,25.332996 13.942993,26.150995 13.942993,26.968994 13.282994,27.631992 12.469996,27.631992 11.655998,27.631992 10.995999,26.968994 10.995999,26.150995 10.995999,25.332996 11.655998,24.669998 12.469996,24.669998z M6.5099974,24.669998C7.323,24.669998 7.9830017,25.332996 7.9830017,26.150995 7.9830017,26.968994 7.323,27.631992 6.5099974,27.631992 5.6959949,27.631992 5.0359926,26.968994 5.0359926,26.150995 5.0359926,25.332996 5.6959949,24.669998 6.5099974,24.669998z M18.491001,19.151999C19.304003,19.151999 19.964006,19.814997 19.964006,20.632996 19.964006,21.450993 19.304003,22.113993 18.491001,22.113993 17.676998,22.113993 17.016996,21.450993 17.016996,20.632996 17.016996,19.814997 17.676998,19.151999 18.491001,19.151999z M12.469996,19.151999C13.282994,19.151999 13.942993,19.814997 13.942993,20.632996 13.942993,21.450993 13.282994,22.113993 12.469996,22.113993 11.655998,22.113993 10.995999,21.450993 10.995999,20.632996 10.995999,19.814997 11.655998,19.151999 12.469996,19.151999z M6.5099974,19.151999C7.323,19.151999 7.9830017,19.814997 7.9830017,20.632996 7.9830017,21.450993 7.323,22.113993 6.5099974,22.113993 5.6959949,22.113993 5.0359926,21.450993 5.0359926,20.632996 5.0359926,19.814997 5.6959949,19.151999 6.5099974,19.151999z M18.491001,13.633989C19.304003,13.633989 19.964006,14.296995 19.964006,15.115002 19.964006,15.933009 19.304003,16.596014 18.491001,16.596014 17.676998,16.596014 17.016996,15.933009 17.016996,15.115002 17.016996,14.296995 17.676998,13.633989 18.491001,13.633989z M12.469996,13.633989C13.282994,13.633989 13.942993,14.296995 13.942993,15.115002 13.942993,15.933009 13.282994,16.596014 12.469996,16.596014 11.655998,16.596014 10.995999,15.933009 10.995999,15.115002 10.995999,14.296995 11.655998,13.633989 12.469996,13.633989z M6.5099974,13.633989C7.323,13.633989 7.9830017,14.296995 7.9830017,15.115002 7.9830017,15.933009 7.323,16.596014 6.5099974,16.596014 5.6959949,16.596014 5.0359926,15.933009 5.0359926,15.115002 5.0359926,14.296995 5.6959949,13.633989 6.5099974,13.633989z M6,5.9999924L6,8.9999924 19,8.9999924 19,5.9999924z M4,3.9999924L21,3.9999924 21,10.999992 4,10.999992z M2,2L2,30 23,30 23,2z M0,0L25,0 25,32 0,32z" 
                           Stretch="Uniform" 
                           Fill="White" 
-                          Width="44" Height="44" Margin="10" RenderTransformOrigin="0.5,0.5"
+                          Width="44" Height="44" Margin="20" RenderTransformOrigin="0.5,0.5"
                           Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label Content="Loan Calculator" FontStretch="Expanded" Grid.Column="1" Grid.Row="0" 
-                           FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Label Content="Loan Calculator" FontWeight="Bold" FontStretch="Expanded" Grid.Column="1" Grid.Row="0" 
+                           FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center"
                            Foreground="White"/>
-                    <ComboBox SelectedIndex="0" VerticalAlignment="Center" Margin="0,0,20,0"
+                    <ComboBox SelectedIndex="0" 
+                              VerticalAlignment="Center" 
+                              Margin="0,0,30,0"
                               HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" 
                               HorizontalContentAlignment="Center"
                               Width="150" Height="30" 
+                              FontSize="15"     
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Light"/>
                         <ComboBoxItem Content="Dark"/>
                     </ComboBox>
                 </Grid>
             </Border>
-            <Border Grid.Column="0" Grid.Row="1" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="4*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+            
+            <Border Grid.Column="0" Grid.Row="1" BorderThickness="1.5" BorderBrush="LightSlateGray" Margin="10,10,5,5">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock Text="Select loan amount" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-                        <extk:DoubleUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="500000" Increment="10000"
-                                           TextAlignment="Left" UpdateValueOnEnterKey="True" x:Name="upDown1"
+                    <TextBlock Text="Loan Amount ($)" FontSize="17" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                    <extk:DoubleUpDown x:Name="upDown1"
+                                           Grid.Row="0" Grid.Column="1" 
+                                           Minimum="0" Maximum="500000" Increment="10000"
+                                           TextAlignment="Left" 
                                            Background="{Binding UpDownBackground}"
                                            Foreground="{Binding UpDownForeground}"
-                                       Value="{Binding ElementName=loanSlider,Path=Value,Mode=TwoWay}"
-                                       HorizontalContentAlignment="Left" ValueChanged="DoubleUpDown_ValueChanged">
-                        </extk:DoubleUpDown>
-                        <syncfusion:SfRangeSlider x:Name="loanSlider" Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="500000" 
+                                           Value="{Binding ElementName=loanSlider, Path=Value, Mode=TwoWay}"
+                                           HorizontalContentAlignment="Left" 
+                                           ValueChanged="DoubleUpDown_ValueChanged"
+                                           FontSize="15"
+                                           Height="40">
+                    </extk:DoubleUpDown>
+                    <syncfusion:SfRangeSlider x:Name="loanSlider" Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="500000" 
                                               ShowValueLabels="True"
                                               Value="300000"
+                                              ToolTipFormat="C0"
                                               TickFrequency="100000"
-                                              TickPlacement="BottomRight"
-                                              LabelPlacement="TopLeft"/>
+                                              TickPlacement="BottomRight"                                                   
+                                              SnapsTo="StepValues"
+                                              StepFrequency="10000"
+                                              LabelPlacement="TopLeft"
+                                              InactiveTrackStyle="{StaticResource ResourceKey=InactiveTrackStyle}"
+                                              ActiveTrackStyle="{StaticResource ResourceKey=ActiveTrackStyle}"
+                                              ThumbStyle="{StaticResource ThumbStyle}">
+                    </syncfusion:SfRangeSlider>
 
-                        <TextBlock Text="Rate of interest" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                        <extk:DoubleUpDown Grid.Row="2" Grid.Column="1"  Minimum="0" Maximum="50"  x:Name="upDown2"
-                                       Increment="0.25" TextAlignment="Left" UpdateValueOnEnterKey="True"
-                                        Background="{Binding UpDownBackground}"
-                                        Foreground="{Binding UpDownForeground}"
-                                       Value="{Binding ElementName=interestSlider,Path=Value,Mode=TwoWay}"
-                                       ValueChanged="DoubleUpDown_ValueChanged_1"/>
-                        <syncfusion:SfRangeSlider Grid.Row="3" Grid.ColumnSpan="2"
-                                          x:Name="interestSlider"
-                                          Minimum="0"
-                                          Maximum="50"
-                                          Value="5.5"
-                                          TickPlacement="BottomRight"
-                                          TickFrequency="10"
-                                          ShowValueLabels="True"/>
+                    <TextBlock Text="Rate of Interest (%)" FontSize="17" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                    <extk:DoubleUpDown Grid.Row="2" Grid.Column="1"  
+                                           Minimum="0" Maximum="50"  
+                                           x:Name="upDown2"
+                                           FontSize="15"
+                                           Increment="0.25" TextAlignment="Left" UpdateValueOnEnterKey="False"
+                                           Background="{Binding UpDownBackground}"
+                                           Foreground="{Binding UpDownForeground}"
+                                           Value="{Binding ElementName=interestSlider,Path=Value,Mode=TwoWay}"
+                                           ValueChanged="DoubleUpDown_ValueChanged_1"
+                                           Height="40" />
+                    <syncfusion:SfRangeSlider Grid.Row="3" Grid.ColumnSpan="2"
+                                                  x:Name="interestSlider"
+                                                  ToolTipFormat="0'%"
+                                                  Minimum="0"
+                                                  Maximum="50"
+                                                  Value="5.5"
+                                                  TickPlacement="BottomRight"
+                                                  TickFrequency="10"
+                                                  SnapsTo="StepValues"
+                                                  ShowValueLabels="True"
+                                                  InactiveTrackStyle="{StaticResource ResourceKey=InactiveTrackStyle}"
+                                                  ActiveTrackStyle="{StaticResource ResourceKey=ActiveTrackStyle}"
+                                                  ThumbStyle="{StaticResource ThumbStyle}" />
 
-                        <TextBlock Text="Loan Tenure" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-                        <Grid Grid.Row="4" Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <syncfusion:IntegerTextBox Value="{Binding ElementName=tenureSlider,Path=Value,Mode=TwoWay}" Grid.Column="0" Height="50" 
+                    <TextBlock Text="Loan Tenure" FontSize="17" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <syncfusion:IntegerTextBox Value="{Binding ElementName=tenureSlider,Path=Value,Mode=TwoWay}" 
+                                                       Grid.Column="0" Height="40" 
+                                                       FontSize="15"
                                                        EnterToMoveNext="True"                                                      
-                                                       ValueChanged="IntegerTextBox_ValueChanged"/>
-                            <ComboBox Grid.Column="1" Height="50" SelectedIndex="0" 
+                                                       ValueChanged="IntegerTextBox_ValueChanged" />
+                        <ComboBox Grid.Column="1" 
+                                      Height="40" 
+                                      Margin="5,0,0,0"
+                                      FontSize="15"
+                                      SelectedIndex="0" 
                                       SelectionChanged="ComboBox_SelectionChanged"
                                       VerticalContentAlignment="Center">
-                                <ComboBoxItem Content="Year"/>
-                                <ComboBoxItem Content="Month"/>
-                            </ComboBox>
-                        </Grid>
-                        <syncfusion:SfRangeSlider Grid.Row="5" Grid.ColumnSpan="2" x:Name="tenureSlider"
-                                          Minimum="0"
-                                          Maximum="40"
-                                          Value="12"
-                                          TickPlacement="BottomRight"
-                                          TickFrequency="10"
-                                          ShowValueLabels="True"
-                                          ValuePlacement="BottomRight"
-                                          />
+                            <ComboBoxItem Content="Year"/>
+                            <ComboBoxItem Content="Month"/>
+                        </ComboBox>
                     </Grid>
-                </Border>
-                <Border Grid.Column="1" Grid.Row="1" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
+                    <syncfusion:SfRangeSlider Grid.Row="5" Grid.ColumnSpan="2" x:Name="tenureSlider"
+                                                  Minimum="0"
+                                                  Maximum="40"
+                                                  Value="12"
+                                                  TickPlacement="BottomRight"
+                                                  TickFrequency="10"
+                                                  ShowValueLabels="True"
+                                                  ValuePlacement="BottomRight"
+                                                  InactiveTrackStyle="{StaticResource ResourceKey=InactiveTrackStyle}"
+                                                  ActiveTrackStyle="{StaticResource ResourceKey=ActiveTrackStyle }"
+                                                  ThumbStyle="{StaticResource ThumbStyle}" />
+                </Grid>
+            </Border>
+            
+            <Border Grid.Column="1" Grid.Row="1" BorderThickness="1.5" BorderBrush="LightSlateGray" Margin="5,10,10,5">
                 <Grid Margin="10" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="7*"/>
@@ -135,160 +196,210 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <syncfusion:SfChart Grid.Row="0" Grid.ColumnSpan="2">
+                    <syncfusion:SfChart Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,25,0">
                         <syncfusion:SfChart.Legend>
-                            <syncfusion:ChartLegend DockPosition="Right"/>
+                            <syncfusion:ChartLegend DockPosition="Right" IconHeight="10" IconWidth="10" ItemMargin="10" FontSize="16" />
                         </syncfusion:SfChart.Legend>
                         <syncfusion:DoughnutSeries ItemsSource="{Binding EmiData}"
                                                    XBindingPath="XValue"
                                                    YBindingPath="YValue"
                                                    ShowTooltip="True"
                                                    DoughnutCoefficient="0.4"
-                                                   LegendIcon="Circle"
-                                               >
+                                                   Palette="Custom"
+                                                   LegendIcon="Circle">
                             <syncfusion:DoughnutSeries.CenterView>
                                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <StackPanel>
-                                        <Label Content="Total AmountPayable" FontSize="15" FontWeight="Bold"/>
-                                        <Label x:Name="viewLabel" HorizontalContentAlignment="Center" FontSize="15"
-                                               FontWeight="Bold"/>
+                                        <Label Content="Total Payable Amount" FontSize="15" />
+                                        <Label x:Name="viewLabel" 
+                                               HorizontalContentAlignment="Center" 
+                                               FontSize="16"
+                                               FontWeight="Medium"/>
                                     </StackPanel>
                                 </ContentControl>
                             </syncfusion:DoughnutSeries.CenterView>
+                            <syncfusion:DoughnutSeries.ColorModel>
+                                <syncfusion:ChartColorModel>
+                                    <syncfusion:ChartColorModel.CustomBrushes>
+                                        <SolidColorBrush Color="#AA65D3"/>
+                                        <SolidColorBrush Color="#F67373"/>
+                                    </syncfusion:ChartColorModel.CustomBrushes>
+                                </syncfusion:ChartColorModel>
+                            </syncfusion:DoughnutSeries.ColorModel>
+                            <syncfusion:DoughnutSeries.TooltipTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Item.YValue}" FontSize="12" />
+                                </DataTemplate>
+                            </syncfusion:DoughnutSeries.TooltipTemplate>
                         </syncfusion:DoughnutSeries>
                     </syncfusion:SfChart>
-                    <Separator Grid.ColumnSpan="2" Grid.Row="1" Margin="-10,20"></Separator>
-                    <Label Content="Your Monthly payment" Grid.Row="2" Grid.Column="0" FontWeight="Bold"
-                           FontSize="25"  HorizontalContentAlignment="Center"  FontFamily="Calibri"
-                           VerticalContentAlignment="Center"/>
-                    <Label x:Name="label" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold"
-                           FontSize="25"/>
+                    <Separator Grid.ColumnSpan="2" BorderBrush="LightSlateGray" Grid.Row="1" Margin="0,10"></Separator>
+                    <Label Content="Payment Per Month" Grid.Row="2" Grid.Column="0"
+                           FontSize="19"  HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center" />
+                    <Label x:Name="label" 
+                           Grid.Row="2" Grid.Column="1" 
+                           HorizontalContentAlignment="Center" 
+                           FontWeight="Medium"
+                           FontSize="22"/>
                 </Grid>
             </Border>
-                <Border Grid.Row="2" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="2" BorderBrush="Gray" Margin="10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7*"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Row="0" Grid.Column="0">
-                            <Label Content="Your Repayment Details" FontStretch="ExtraExpanded" FontSize="20"/>
-                            <Label Content="Your debt repayment schedule in regular instalments over a period of time."/>
-                        </StackPanel>
 
-                    <syncfusion:SfDatePicker Grid.Row="0" Grid.Column="1" FormatString="MMM yyyy" x:Name="datePicker"                                             
-                                             SelectorFormatString="M" Width="200" HorizontalAlignment="Right" 
-                                             Margin="0,0,20,0" ValueChanged="datePicker_ValueChanged">
-                       
+            <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1.5" BorderBrush="LightSlateGray" Margin="10,5,10,5">
+                <Grid Margin="20,10,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <Label Content="Repayment Details" FontStretch="ExtraExpanded" FontSize="20" />
+                        <Label Content="Your debt repayment schedule in regular instalments over a period of time."/>
+                    </StackPanel>
+
+                    <syncfusion:SfDatePicker Grid.Row="0" Grid.Column="1" 
+                                             FormatString="MMM yyyy" 
+                                             x:Name="datePicker"        
+                                             SetValueOnLostFocus="True"
+                                             HorizontalContentAlignment="Center"
+                                             SelectorFormatString="M" Width="200" Height="40" FontSize="16" HorizontalAlignment="Right"
+                                             ValueChanged="datePicker_ValueChanged">
                     </syncfusion:SfDatePicker>
 
-
-
-                    <syncfusion:SfChart Margin="10" Grid.Row="1" Grid.ColumnSpan="2">
+                    <syncfusion:SfChart Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
                         <syncfusion:SfChart.Resources>
                             <ResourceDictionary>
                                 <DataTemplate x:Key="tooltiptemplate">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Item.Years, StringFormat='{}{0:yyyy}'}" HorizontalAlignment="Center"/>
-                                        <Separator Width="150" Height="2"/>
-                                        <TextBlock Text="{Binding Item.PrincipalPaid,StringFormat='PrincipalPaid : ${0:N0}'}" />
-                                        <TextBlock Text="{Binding Item.InterestPaid,StringFormat='InterestPaid : ${0:N0}'}" />
-                                        <TextBlock Text="{Binding Item.BalanceAmount,StringFormat='BalanceAmount : ${0:N0}'}" />
+                                        <TextBlock Text="{Binding Item.Years, StringFormat='{}{0:yyyy}'}" FontSize="12" FontWeight="Medium" HorizontalAlignment="Center"/>
+                                        <Separator Width="150" Height="1.5"/>
+                                        <TextBlock Text="{Binding Item.PrincipalPaid,StringFormat='Principal Paid: ${0:N0}'}" FontSize="12" />
+                                        <TextBlock Text="{Binding Item.InterestPaid,StringFormat='Interest Paid: ${0:N0}'}" FontSize="12" />
+                                        <TextBlock Text="{Binding Item.BalanceAmount,StringFormat='Balance Amount: ${0:N0}'}" FontSize="12" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ResourceDictionary>
                         </syncfusion:SfChart.Resources>
-                            <syncfusion:SfChart.PrimaryAxis>
-                                <syncfusion:DateTimeAxis LabelFormat="yyyy" Header="Years">
-                                </syncfusion:DateTimeAxis>
-                            </syncfusion:SfChart.PrimaryAxis>
-                            <syncfusion:SfChart.SecondaryAxis>
-                                <syncfusion:NumericalAxis Header="Payments" LabelFormat="$0"/>
-                            </syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:SfChart.PrimaryAxis>
+                            <syncfusion:DateTimeCategoryAxis LabelFormat="yyyy" Header="Years" FontSize="13" ShowGridLines="False">
+                                <syncfusion:DateTimeCategoryAxis.HeaderStyle>
+                                    <syncfusion:LabelStyle FontSize="16" />
+                                </syncfusion:DateTimeCategoryAxis.HeaderStyle>
+                            </syncfusion:DateTimeCategoryAxis>
+                        </syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:SfChart.SecondaryAxis>
+                            <syncfusion:NumericalAxis Header="Payments" LabelFormat="$0" FontSize="13">
+                                <syncfusion:NumericalAxis.HeaderStyle>
+                                    <syncfusion:LabelStyle FontSize="16" />
+                                </syncfusion:NumericalAxis.HeaderStyle>
+                            </syncfusion:NumericalAxis>
+                        </syncfusion:SfChart.SecondaryAxis>
                         <syncfusion:SfChart.Legend>
-                            <syncfusion:ChartLegend DockPosition="Bottom"/>
+                            <syncfusion:ChartLegend DockPosition="Bottom" IconHeight="10" ItemMargin="10,0" IconWidth="10" FontSize="13.5" />
                         </syncfusion:SfChart.Legend>
-                            <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
-                                                     XBindingPath="Years"
-                                                     YBindingPath="PrincipalPaid"
-                                                     ShowTooltip="True"
-                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
-                                                     LegendIcon="SeriesType"
-                                                     Label="PrincipalPaid"/>
-                            <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
-                                                     XBindingPath="Years"
-                                                     YBindingPath="InterestPaid"
-                                                     ShowTooltip="True"
-                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
-                                                     LegendIcon="SeriesType"
-                                                     Label="InterestPaid"/>
-                            <syncfusion:LineSeries ItemsSource="{Binding LoanStatusData}"
-                                                     XBindingPath="Years"
-                                                     YBindingPath="BalanceAmount"
-                                                     ShowTooltip="True"
-                                                     TooltipTemplate="{StaticResource tooltiptemplate}"
-                                                   LegendIcon="SeriesType"
-                                                   Label="Balance">
-                                <syncfusion:LineSeries.AdornmentsInfo>
-                                    <syncfusion:ChartAdornmentInfo ShowMarker="True" Symbol="Diamond"/>
-                                </syncfusion:LineSeries.AdornmentsInfo>
-                                <syncfusion:LineSeries.YAxis>
-                                    <syncfusion:NumericalAxis OpposedPosition="True" Header="BalanceAmount" 
-                                                              LabelFormat="$0"
-                                                              RangePadding="Additional"/>
-                                </syncfusion:LineSeries.YAxis>
-                            </syncfusion:LineSeries>
-                        </syncfusion:SfChart>
-                    </Grid>
-                </Border>
-           
+                        <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
+                                                             XBindingPath="Years"
+                                                             YBindingPath="PrincipalPaid"
+                                                             ShowTooltip="True"
+                                                             TooltipTemplate="{StaticResource tooltiptemplate}"
+                                                             LegendIcon="SeriesType"
+                                                         Interior="#AA65D3"
+                                                             Label="Principal Paid">
+                        </syncfusion:StackingColumnSeries>
+                        <syncfusion:StackingColumnSeries ItemsSource="{Binding LoanStatusData}"
+                                                             XBindingPath="Years"
+                                                             YBindingPath="InterestPaid"
+                                                             ShowTooltip="True"
+                                                             TooltipTemplate="{StaticResource tooltiptemplate}"
+                                                             LegendIcon="SeriesType"
+                                                             Interior="#F67373"
+                                                             Label="Interest Paid" />
+                        <syncfusion:LineSeries ItemsSource="{Binding LoanStatusData}"
+                                               XBindingPath="Years"
+                                               YBindingPath="BalanceAmount"
+                                               ShowTooltip="True"
+                                               TooltipTemplate="{StaticResource tooltiptemplate}"
+                                               LegendIcon="StraightLine"
+                                               Interior="DarkSlateBlue"
+                                               Label="Balance">
+                            <syncfusion:LineSeries.AdornmentsInfo>
+                                <syncfusion:ChartAdornmentInfo ShowMarker="True" Symbol="Diamond"/>
+                            </syncfusion:LineSeries.AdornmentsInfo>
+                            <syncfusion:LineSeries.YAxis>
+                                <syncfusion:NumericalAxis OpposedPosition="True" 
+                                                          Header="Balance Amount" 
+                                                          LabelFormat="$0"
+                                                          ShowGridLines="False"
+                                                          FontSize="13"
+                                                          Minimum="0"
+                                                          RangePadding="Additional">
+                                    <syncfusion:NumericalAxis.HeaderStyle>
+                                        <syncfusion:LabelStyle FontSize="16" />
+                                    </syncfusion:NumericalAxis.HeaderStyle>
+                                </syncfusion:NumericalAxis>
+                            </syncfusion:LineSeries.YAxis>
+                        </syncfusion:LineSeries>
+                    </syncfusion:SfChart>
+                </Grid>
+            </Border>
+
             <syncfusion:SfDataGrid  x:Name="dataGrid" 
-                                   AutoGenerateRelations="True"
+                                    AutoGenerateRelations="True"
                                     Grid.Row="3"
                                     Grid.ColumnSpan="2"
-                                    Margin="10"
-                                   >
+                                    ColumnSizer="Star"
+                                    HeaderRowHeight="40"
+                                    RowHeight="30"
+                                    Margin="10">
+                <syncfusion:SfDataGrid.HeaderStyle>
+                    <Style TargetType="syncfusion:GridHeaderCellControl">
+                        <!-- Matches your app's red header -->
+                        <Setter Property="Foreground" Value="#E84646" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="FontSize" Value="16" />
+                    </Style>
+                </syncfusion:SfDataGrid.HeaderStyle>
+
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn MappingName="Years" AllowGrouping="True">
+
+                    <syncfusion:GridTextColumn MappingName="Years" AllowGrouping="True" TextAlignment="Center">
                         <syncfusion:GridTextColumn.DisplayBinding>
                             <Binding Path="Years" StringFormat='{}{0:yyyy}'/>
                         </syncfusion:GridTextColumn.DisplayBinding>
+
                     </syncfusion:GridTextColumn>
 
-                    <syncfusion:GridTextColumn MappingName="Payments">
+                    <syncfusion:GridTextColumn MappingName="Payments" TextAlignment="Center">
                         <syncfusion:GridTextColumn.DisplayBinding>
                             <Binding Path="Payments" StringFormat='${0:N0}'/>
                         </syncfusion:GridTextColumn.DisplayBinding>
                     </syncfusion:GridTextColumn>
 
-
-                    <syncfusion:GridTextColumn MappingName="PrincipalPaid">
+                    <syncfusion:GridTextColumn MappingName="PrincipalPaid" TextAlignment="Center">
                         <syncfusion:GridTextColumn.DisplayBinding>
                             <Binding Path="PrincipalPaid" StringFormat='${0:N0}'/>
                         </syncfusion:GridTextColumn.DisplayBinding>
                     </syncfusion:GridTextColumn>
 
-
-                    <syncfusion:GridTextColumn MappingName="InterestPaid">
+                    <syncfusion:GridTextColumn MappingName="InterestPaid" TextAlignment="Center">
                         <syncfusion:GridTextColumn.DisplayBinding>
                             <Binding Path="InterestPaid" StringFormat='${0:N0}'/>
                         </syncfusion:GridTextColumn.DisplayBinding>
                     </syncfusion:GridTextColumn>
 
-
-                    <syncfusion:GridTextColumn MappingName="BalanceAmount">
+                    <syncfusion:GridTextColumn MappingName="BalanceAmount" TextAlignment="Center">
                         <syncfusion:GridTextColumn.DisplayBinding>
-                            <Binding Path="BalanceAmount" StringFormat='${0:N0}'/>
+                            <Binding Path="BalanceAmount" StringFormat='${0:N0}' />
                         </syncfusion:GridTextColumn.DisplayBinding>
                     </syncfusion:GridTextColumn>
 
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
-           
+
         </Grid>
     </ScrollViewer>
 </Window>
