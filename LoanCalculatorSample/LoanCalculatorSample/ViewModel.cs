@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace LoanCalculatorSample
 {
@@ -56,7 +50,7 @@ namespace LoanCalculatorSample
         public ObservableCollection<EMIModel> EmiData { get; set; }
         public ObservableCollection<Model> LoanStatusData { get; set; }
 
-        public ObservableCollection<MonthlyDetails> MonntlyLoanStatusData = new ObservableCollection<MonthlyDetails>();    
+        public ObservableCollection<MonthlyDetails> MonthlyLoanStatusData = new ObservableCollection<MonthlyDetails>();    
 
         public ViewModel() 
         {

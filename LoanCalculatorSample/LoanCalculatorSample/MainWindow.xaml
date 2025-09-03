@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoanCalculatorSample"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="450" Width="800"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:extk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -196,7 +197,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <syncfusion:SfChart Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,25,0">
+                    <syncfusion:SfChart Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,10,0">
                         <syncfusion:SfChart.Legend>
                             <syncfusion:ChartLegend DockPosition="Right" IconHeight="10" IconWidth="10" ItemMargin="10" FontSize="16" />
                         </syncfusion:SfChart.Legend>
@@ -210,11 +211,11 @@
                             <syncfusion:DoughnutSeries.CenterView>
                                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <StackPanel>
-                                        <Label Content="Total Payable Amount" FontSize="15" />
+                                        <Label x:Name="titleLabel" Content="Total Payable Amount" FontSize="15" />
                                         <Label x:Name="viewLabel" 
                                                HorizontalContentAlignment="Center" 
                                                FontSize="16"
-                                               FontWeight="Medium"/>
+                                               FontWeight="Medium" />
                                     </StackPanel>
                                 </ContentControl>
                             </syncfusion:DoughnutSeries.CenterView>
@@ -266,7 +267,7 @@
                                              SetValueOnLostFocus="True"
                                              HorizontalContentAlignment="Center"
                                              SelectorFormatString="M" Width="200" Height="40" FontSize="16" HorizontalAlignment="Right"
-                                             ValueChanged="datePicker_ValueChanged">
+                                             ValueChanged="DatePicker_ValueChanged">
                     </syncfusion:SfDatePicker>
 
                     <syncfusion:SfChart Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">

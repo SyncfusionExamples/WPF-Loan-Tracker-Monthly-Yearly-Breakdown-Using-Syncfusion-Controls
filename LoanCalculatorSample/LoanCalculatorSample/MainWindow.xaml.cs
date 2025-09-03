@@ -1,20 +1,8 @@
 ﻿using Syncfusion.SfSkinManager;
-using Syncfusion.Windows.Controls;
-using Syncfusion.Windows.Shared;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Reflection;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
 namespace LoanCalculatorSample
 {
@@ -27,7 +15,7 @@ namespace LoanCalculatorSample
         double interestAmount;
         double loanPeriod;
         DateTime selectedDate;
-        string periodType;
+        string? periodType;
 
         ObservableCollection<MonthlyDetails> months;
 
@@ -36,7 +24,28 @@ namespace LoanCalculatorSample
             InitializeComponent();
             dataGrid.ItemsSource = viewModel.LoanStatusData;
             months = new ObservableCollection<MonthlyDetails>();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            titleLabel.Visibility = Visibility.Collapsed;
+            StateChanged += MainWindow_StateChanged;
+        }
+
+        private void MainWindow_StateChanged(object? sender, EventArgs e)
+        {
+            if (WindowState is System.Windows.WindowState.Minimized)
+            {
+                titleLabel.Visibility = Visibility.Collapsed;
+            }
+            else if (WindowState == System.Windows.WindowState.Maximized)
+            {
+                titleLabel.Visibility = Visibility.Visible;
+            }
+            else if (WindowState == System.Windows.WindowState.Normal)
+            {
+                titleLabel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void DoubleUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -57,7 +66,7 @@ namespace LoanCalculatorSample
             CalculateLoan();
         }
 
-        private void datePicker_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void DatePicker_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             selectedDate = (DateTime)e.NewValue;
             CalculateLoan();
@@ -128,7 +137,7 @@ namespace LoanCalculatorSample
                         Math.Round(yearlyInterest, 2),
                         Math.Round(yearlyPrincipal, 2),
                         Math.Round(yearEndBalance, 2),
-                        viewModel.MonntlyLoanStatusData = GetMonntlyLoanStatusData(yearGroup.Key)
+                        viewModel.MonthlyLoanStatusData = GetMonthlyLoanStatusData(yearGroup.Key)
                         ));   
                 }
 
@@ -148,7 +157,7 @@ namespace LoanCalculatorSample
         
         
 
-        private ObservableCollection<MonthlyDetails> GetMonntlyLoanStatusData(int key)
+        private ObservableCollection<MonthlyDetails> GetMonthlyLoanStatusData(int key)
         {
            ObservableCollection<MonthlyDetails> monthlyDetails = new ObservableCollection<MonthlyDetails>();
 
@@ -182,7 +191,7 @@ namespace LoanCalculatorSample
 
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ComboBox combobox && combobox.SelectedIndex == 0)
+            if (sender is ComboBox comboBox && comboBox.SelectedIndex == 0)
             {
                 SfSkinManager.SetTheme(this, new FluentTheme { ThemeName = "FluentLight", HoverEffectMode = HoverEffect.Border });
                 viewModel.UpDownForeground = Brushes.Black;
