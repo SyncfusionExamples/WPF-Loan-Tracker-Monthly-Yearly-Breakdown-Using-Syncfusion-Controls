@@ -11,7 +11,7 @@ This sample project delves into building an Interactive Loan Calculator Dashboar
 
 When you launch your Loan Calculator sample, you’ll see all your charts and tables update in real time, giving you a clear, professional, and actionable view into your loan scenario.
 
-[image]
+<img width="1919" height="985" alt="loan calculator dashboard output image" src="https://github.com/user-attachments/assets/4bd0e5ab-e628-4a38-9481-b8de79db4b9b" />
 
 ## Troubleshooting
 
