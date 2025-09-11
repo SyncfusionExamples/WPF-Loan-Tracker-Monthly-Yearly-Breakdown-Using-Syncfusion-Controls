@@ -30,7 +30,7 @@ The dashboard’s detailed table, built with Syncfusion’s [WPF SfDataGrid](htt
 
 When you launch your Loan Calculator sample, you’ll see all your charts and tables update in real time, giving you a clear, professional, and actionable view into your loan scenario.
 
-<img width="1919" height="985" alt="loan calculator dashboard output image" src="https://github.com/user-attachments/assets/4bd0e5ab-e628-4a38-9481-b8de79db4b9b" />
+![sample output of loan calculator dashboard](https://github.com/user-attachments/assets/b4ec2b9d-2f69-4514-b2ba-a864d3ac9a3e)
 
 ## Troubleshooting
 
