@@ -38,4 +38,4 @@ When you launch your Loan Calculator sample, you’ll see all your charts and ta
 
 If you are facing a "Path too long" exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
-For a detailed step-by-step guide with relevant code snippets, refer to the blog on [how to build a Loan Calculator Dashboard Using WPF Charts]().
+For a detailed step-by-step guide with relevant code snippets, refer to the blog on [how to build a Loan Calculator Dashboard Using WPF Charts](https://www.syncfusion.com/blogs/post/wpf-charts-dashboard/amp).
